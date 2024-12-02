@@ -93,22 +93,25 @@ fn build_client(args: &Args) -> AocResult<AocClient> {
 
 fn run(args: &Args, client: AocClient) -> AocResult<()> {
     match &args.command {
-        Some(Command::Calendar) => client.show_calendar(),
-        Some(Command::Download) => {
-            if !args.input_only {
-                client.save_puzzle_markdown()?;
+        Some(command) => match command {
+            Command::Calendar => client.show_calendar(),
+            Command::Download => {
+                if !args.input_only {
+                    client.save_puzzle_markdown()?;
+                }
+                if !args.puzzle_only {
+                    client.save_input()?;
+                }
+                Ok(())
             }
-            if !args.puzzle_only {
-                client.save_input()?;
+            Command::Submit { part, answer } => {
+                client.submit_answer_and_show_outcome(part, answer)
             }
-            Ok(())
-        }
-        Some(Command::Submit { part, answer }) => {
-            client.submit_answer_and_show_outcome(part, answer)
-        }
-        Some(Command::PrivateLeaderboard { leaderboard_id }) => {
-            client.show_private_leaderboard(*leaderboard_id)
-        }
-        _ => client.show_puzzle(),
+            Command::PrivateLeaderboard { leaderboard_id } => {
+                client.show_private_leaderboard(*leaderboard_id)
+            }
+            Command::Read => client.show_puzzle(),
+        },
+        None => client.show_puzzle(),
     }
 }
