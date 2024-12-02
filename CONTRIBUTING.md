@@ -58,6 +58,4 @@ it finds, and make sure your code is properly formatted with `cargo fmt`.
 - Give user the option to overwrite or rename a downloaded file if it already
   exists (rather than fail).
 
-- Generate shell completion
-
 - Add tests and documentation!

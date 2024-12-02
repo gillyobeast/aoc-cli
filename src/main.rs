@@ -1,11 +1,13 @@
 mod args;
 
 use aoc_client::{AocClient, AocError, AocResult};
-use args::{Args, Command};
-use clap::{crate_description, crate_name, Parser};
+use args::{Args, Command, GenerateCompletionCommand};
+use clap::{crate_description, crate_name, CommandFactory, Parser};
+use clap_complete::generate;
 use env_logger::{Builder, Env};
 use exit_code::*;
 use log::{error, info, warn, LevelFilter};
+use std::io;
 use std::process::exit;
 
 fn main() {
@@ -111,7 +113,19 @@ fn run(args: &Args, client: AocClient) -> AocResult<()> {
                 client.show_private_leaderboard(*leaderboard_id)
             }
             Command::Read => client.show_puzzle(),
+            Command::GenerateCompletion(command) => {
+                generate_completion(command);
+                Ok(())
+            }
         },
         None => client.show_puzzle(),
     }
+}
+
+/// Generate a completion script.
+fn generate_completion(command: &GenerateCompletionCommand) {
+    let shell = command.shell;
+    let mut app = Args::command();
+    let bin_name = env!("CARGO_BIN_NAME");
+    generate(shell, &mut app, bin_name, &mut io::stdout());
 }

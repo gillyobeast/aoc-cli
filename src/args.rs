@@ -1,5 +1,6 @@
 use aoc_client::{LeaderboardId, PuzzleDay, PuzzleYear};
 use clap::{Parser, Subcommand};
+use clap_complete::Shell;
 
 #[derive(Parser, Debug)]
 #[command(version, about, infer_subcommands = true)]
@@ -108,4 +109,15 @@ pub enum Command {
         /// Private leaderboard ID
         leaderboard_id: LeaderboardId,
     },
+
+    /// Generate a completion script. Enable completion using
+    /// `source <(aoc generate-completion <SHELL>)`
+    GenerateCompletion(GenerateCompletionCommand),
+}
+
+#[derive(Parser, Debug)]
+pub(crate) struct GenerateCompletionCommand {
+    /// The shell for which to generate the completion script.
+    #[clap(value_enum)]
+    pub(crate) shell: Shell,
 }

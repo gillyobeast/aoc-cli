@@ -121,6 +121,7 @@ Commands:
   read                 Read puzzle statement (the default command) [aliases: r]
   submit               Submit puzzle answer [aliases: s]
   private-leaderboard  Show the state of a private leaderboard [aliases: p]
+  generate-completion  Generate a completion script. Enable completion using `source <(aoc generate-completion <SHELL>)`
   help                 Print this message or the help of the given subcommand(s)
 
 Options:
@@ -133,10 +134,11 @@ Options:
   -P, --puzzle-only          Download puzzle description only
   -i, --input-file <PATH>    Path where to save puzzle input [default: input]
   -p, --puzzle-file <PATH>   Path where to save puzzle description [default: puzzle.md]
+  -m, --show-html-markup     Show HTML markup including links
   -q, --quiet                Restrict log messages to errors only
       --debug                Enable debug logging
-  -h, --help                 Print help information
-  -V, --version              Print version information
+  -h, --help                 Print help
+  -V, --version              Print version
 ```
 
 ```
@@ -160,9 +162,28 @@ Options:
   -P, --puzzle-only          Download puzzle description only
   -i, --input-file <PATH>    Path where to save puzzle input [default: input]
   -p, --puzzle-file <PATH>   Path where to save puzzle description [default: puzzle.md]
+  -m, --show-html-markup     Show HTML markup including links
   -q, --quiet                Restrict log messages to errors only
       --debug                Enable debug logging
-  -h, --help                 Print help information
+  -h, --help                 Print help
+```
+
+### Generate command-line completion script
+
+Generate a script to enable completion in your shell. Supports shells listed 
+[here](https://docs.rs/clap_complete/4.5.38/clap_complete/aot/enum.Shell.html).
+
+```
+# source <(aoc generate-completion zsh)
+
+# aoc 
+calendar             c  -- Show Advent of Code calendar and stars collected
+download             d  -- Save puzzle description and input to files
+generate-completion     -- Generate a completion script. Enable completion using `source <(aoc generate-completion <SHELL>)`
+help                    -- Print this message or the help of the given subcommand(s)
+private-leaderboard  p  -- Show the state of a private leaderboard
+read                 r  -- Read puzzle statement (the default command)
+submit               s  -- Submit puzzle answer
 ```
 
 ### Read puzzle description

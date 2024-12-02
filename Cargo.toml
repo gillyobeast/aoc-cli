@@ -16,7 +16,8 @@ path = "src/main.rs"
 
 [dependencies]
 aoc-client = { version = "0.2", path = "aoc-client" }
-clap = { version = "4", features = ["cargo", "color", "derive"]}
+clap = { version = "4", features = ["cargo", "color", "derive"] }
+clap_complete = "4"
 exit-code = "1.0"
 env_logger = "0.10"
 log = "0.4"
